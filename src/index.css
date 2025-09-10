@@ -2,41 +2,71 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* MindWell Design System - Therapeutic & Calming */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Core therapeutic palette */
+    --background: 210 20% 98%;
+    --foreground: 215 25% 20%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 215 25% 20%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 215 25% 20%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary - Calming teal */
+    --primary: 170 60% 45%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 170 60% 65%;
+    --primary-dark: 170 70% 35%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary - Warm sage */
+    --secondary: 140 25% 88%;
+    --secondary-foreground: 215 25% 20%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Muted - Soft neutrals */
+    --muted: 210 15% 95%;
+    --muted-foreground: 215 15% 55%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Accent - Gentle purple for highlights */
+    --accent: 250 35% 85%;
+    --accent-foreground: 250 40% 25%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Therapeutic accent colors */
+    --therapeutic-blue: 200 50% 60%;
+    --therapeutic-green: 140 45% 55%;
+    --therapeutic-purple: 260 35% 65%;
+    --therapeutic-warm: 25 60% 75%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Status colors */
+    --success: 140 50% 50%;
+    --success-foreground: 0 0% 100%;
+    --warning: 35 85% 55%;
+    --warning-foreground: 0 0% 100%;
+    --destructive: 0 70% 55%;
+    --destructive-foreground: 0 0% 100%;
 
-    --radius: 0.5rem;
+    --border: 210 15% 90%;
+    --input: 210 15% 92%;
+    --ring: 170 60% 45%;
+
+    --radius: 0.75rem;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-light)));
+    --gradient-calm: linear-gradient(180deg, hsl(var(--background)), hsl(var(--secondary)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--therapeutic-blue)), hsl(var(--therapeutic-purple)));
+
+    /* Shadows */
+    --shadow-soft: 0 4px 20px -2px hsl(var(--primary) / 0.1);
+    --shadow-card: 0 8px 32px -4px hsl(215 25% 20% / 0.08);
+    --shadow-glow: 0 0 40px hsl(var(--primary) / 0.15);
+
+    /* Animation */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-gentle: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +130,71 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight;
+  }
+}
+
+@layer components {
+  /* Therapeutic UI Components */
+  .mindwell-card {
+    @apply bg-card rounded-2xl border-0 shadow-[var(--shadow-card)] transition-[var(--transition-smooth)];
+  }
+
+  .mindwell-button {
+    @apply inline-flex items-center justify-center rounded-xl font-medium transition-[var(--transition-smooth)] 
+           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring 
+           disabled:pointer-events-none disabled:opacity-50;
+  }
+
+  .mindwell-input {
+    @apply flex w-full rounded-xl border border-input bg-background px-4 py-3
+           text-sm transition-[var(--transition-smooth)] placeholder:text-muted-foreground
+           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring;
+  }
+
+  .gradient-hero {
+    background: var(--gradient-hero);
+  }
+
+  .gradient-calm {
+    background: var(--gradient-calm);
+  }
+
+  .shadow-therapeutic {
+    box-shadow: var(--shadow-soft);
+  }
+
+  .animate-gentle-bounce {
+    animation: gentleBounce 2s ease-in-out infinite;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@keyframes gentleBounce {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes fadeIn {
+  from { 
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0px);
   }
 }
