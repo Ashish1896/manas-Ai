@@ -41,7 +41,7 @@ const Dashboard = ({ onSectionChange }: DashboardProps) => {
   return (
     <div className="min-h-screen pt-20 pb-8">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-therapeutic-blue/10 via-therapeutic-purple/10 to-therapeutic-green/10">
+      <section className="relative overflow-hidden bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5">
         <div className="absolute inset-0 bg-gradient-to-r from-background/60 via-background/40 to-transparent"></div>
         <div className="container mx-auto px-6 py-16 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -98,13 +98,13 @@ const Dashboard = ({ onSectionChange }: DashboardProps) => {
             return (
               <Card 
                 key={index} 
-                className={`mindwell-card p-6 cursor-pointer hover:shadow-therapeutic hover:-translate-y-1 transition-all duration-300 border-l-4 border-l-${action.color} animate-fade-in`}
+                className="mindwell-card p-6 cursor-pointer hover:shadow-therapeutic hover:-translate-y-1 transition-all duration-300 border-l-4 border-l-primary animate-fade-in"
                 style={{ animationDelay: `${index * 0.1}s` }}
                 onClick={action.action}
               >
                 <div className="flex items-start space-x-4">
-                  <div className={`p-3 rounded-xl bg-${action.color}/10`}>
-                    <Icon className={`w-6 h-6 text-${action.color}`} />
+                  <div className="p-3 rounded-xl bg-primary/10">
+                    <Icon className="w-6 h-6 text-primary" />
                   </div>
                   <div className="flex-1">
                     <h3 className="text-xl font-semibold mb-2">{action.title}</h3>
@@ -169,8 +169,8 @@ const Dashboard = ({ onSectionChange }: DashboardProps) => {
 
             <div className="text-center space-y-4">
               <div className="flex justify-center">
-                <div className="p-4 rounded-2xl bg-therapeutic-purple/10">
-                  <MessageCircle className="w-8 h-8 text-therapeutic-purple" />
+                <div className="p-4 rounded-2xl bg-accent/10">
+                  <MessageCircle className="w-8 h-8 text-accent-foreground" />
                 </div>
               </div>
               <h3 className="text-xl font-semibold">Evidence-Based</h3>
