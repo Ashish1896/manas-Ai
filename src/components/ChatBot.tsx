@@ -2,18 +2,20 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Brain, Send, Sparkles, Heart } from "lucide-react";
+import { Brain, Send, Sparkles, Heart, Loader2 } from "lucide-react";
+import { geminiService, ChatMessage } from "@/lib/gemini";
 
 const ChatBot = () => {
   const [messages, setMessages] = useState([
     {
       id: 1,
       type: 'bot',
-      content: "Hi there! I'm your AI wellness companion. I'm here to listen and provide support whenever you need it. How are you feeling today?",
+      content: "Hi there! I'm MindWell, your AI wellness companion. I'm here to listen and provide support whenever you need it. How are you feeling today?",
       timestamp: new Date().toLocaleTimeString()
     }
   ]);
   const [inputValue, setInputValue] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const quickPrompts = [
     "I'm feeling anxious about exams",
@@ -22,8 +24,8 @@ const ChatBot = () => {
     "I'm feeling lonely on campus"
   ];
 
-  const handleSendMessage = () => {
-    if (!inputValue.trim()) return;
+  const handleSendMessage = async () => {
+    if (!inputValue.trim() || isLoading) return;
 
     const newUserMessage = {
       id: messages.length + 1,
@@ -33,18 +35,34 @@ const ChatBot = () => {
     };
 
     setMessages(prev => [...prev, newUserMessage]);
+    const currentInput = inputValue;
     setInputValue('');
+    setIsLoading(true);
 
-    // Simulate AI response
-    setTimeout(() => {
+    try {
+      // Get AI response from Gemini
+      const aiResponse = await geminiService.sendMessage(currentInput);
+      
       const botResponse = {
         id: messages.length + 2,
         type: 'bot',
-        content: "I hear that you're going through a challenging time. It's completely normal to feel this way, especially as a student. Would you like to explore some coping strategies together, or would you prefer to talk more about what you're experiencing?",
+        content: aiResponse,
         timestamp: new Date().toLocaleTimeString()
       };
+      
       setMessages(prev => [...prev, botResponse]);
-    }, 1500);
+    } catch (error) {
+      console.error('Error getting AI response:', error);
+      const errorResponse = {
+        id: messages.length + 2,
+        type: 'bot',
+        content: "I'm sorry, I'm having trouble responding right now. Please try again in a moment, or consider reaching out to your campus counseling center for immediate support.",
+        timestamp: new Date().toLocaleTimeString()
+      };
+      setMessages(prev => [...prev, errorResponse]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleQuickPrompt = (prompt: string) => {
@@ -109,9 +127,13 @@ const ChatBot = () => {
                 onClick={handleSendMessage}
                 size="lg"
                 className="px-4 rounded-xl"
-                disabled={!inputValue.trim()}
+                disabled={!inputValue.trim() || isLoading}
               >
-                <Send className="w-4 h-4" />
+                {isLoading ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  <Send className="w-4 h-4" />
+                )}
               </Button>
             </div>
           </div>

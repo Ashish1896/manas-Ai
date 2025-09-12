@@ -1,14 +1,25 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Brain, MessageCircle, BookOpen, Users, Home, Menu, X } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Brain, MessageCircle, BookOpen, Users, Home, Menu, X, LogOut, User } from "lucide-react";
+import { useUser } from "@clerk/clerk-react";
+import { useNavigate } from "react-router-dom";
 
 interface NavigationProps {
   activeSection: string;
   onSectionChange: (section: string) => void;
+  onSignOut: () => void;
 }
 
-const Navigation = ({ activeSection, onSectionChange }: NavigationProps) => {
+const Navigation = ({ activeSection, onSectionChange, onSignOut }: NavigationProps) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user } = useUser();
+  const navigate = useNavigate();
+
+  const handleSignOut = () => {
+    navigate("/sign-out");
+  };
 
   const navItems = [
     { id: 'dashboard', label: 'Dashboard', icon: Home },
@@ -48,9 +59,32 @@ const Navigation = ({ activeSection, onSectionChange }: NavigationProps) => {
               })}
             </div>
 
-            <Button variant="outline" size="sm" className="rounded-xl">
-              Login
-            </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="sm" className="rounded-xl flex items-center space-x-2">
+                  <Avatar className="h-8 w-8">
+                    <AvatarImage src={user?.imageUrl} alt={user?.fullName || "User"} />
+                    <AvatarFallback>
+                      {user?.firstName?.charAt(0) || user?.emailAddresses[0]?.emailAddress?.charAt(0) || "U"}
+                    </AvatarFallback>
+                  </Avatar>
+                  <span className="hidden sm:block">{user?.firstName || "User"}</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuItem className="flex items-center space-x-2">
+                  <User className="h-4 w-4" />
+                  <span>Profile</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem 
+                  onClick={handleSignOut}
+                  className="flex items-center space-x-2 text-red-600 focus:text-red-600"
+                >
+                  <LogOut className="h-4 w-4" />
+                  <span>Sign Out</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
       </nav>
@@ -95,9 +129,28 @@ const Navigation = ({ activeSection, onSectionChange }: NavigationProps) => {
                   </Button>
                 );
               })}
-              <div className="pt-2 mt-2 border-t border-border">
-                <Button variant="outline" className="w-full rounded-xl">
-                  Login
+              <div className="pt-2 mt-2 border-t border-border space-y-2">
+                <div className="flex items-center space-x-3 p-2">
+                  <Avatar className="h-8 w-8">
+                    <AvatarImage src={user?.imageUrl} alt={user?.fullName || "User"} />
+                    <AvatarFallback>
+                      {user?.firstName?.charAt(0) || user?.emailAddresses[0]?.emailAddress?.charAt(0) || "U"}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium truncate">{user?.fullName || "User"}</p>
+                    <p className="text-xs text-muted-foreground truncate">
+                      {user?.emailAddresses[0]?.emailAddress}
+                    </p>
+                  </div>
+                </div>
+                <Button 
+                  variant="outline" 
+                  onClick={handleSignOut}
+                  className="w-full rounded-xl text-red-600 border-red-200 hover:bg-red-50"
+                >
+                  <LogOut className="h-4 w-4 mr-2" />
+                  Sign Out
                 </Button>
               </div>
             </div>
