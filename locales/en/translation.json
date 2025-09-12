@@ -1,0 +1,126 @@
+{
+  "app": {
+    "name": "Manas Svasthya"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "chat": "AI Chat",
+    "booking": "Booking",
+    "resources": "Resources",
+    "community": "Community",
+    "medicine": "Medicine AI"
+  },
+  "lang": {
+    "english": "English",
+    "hindi": "हिंदी",
+    "odia": "ଓଡ଼ିଆ",
+    "kashmiri": "کشمیری"
+  },
+  "chat": {
+    "title": "AI Wellness Companion",
+    "subtitle": "Safe, confidential support powered by advanced AI trained in mental health best practices",
+    "assistant": "AI Companion",
+    "placeholder": "Share what's on your mind...",
+    "quick": "Common Concerns - Click to start",
+    "quickPrompts": [
+      "I'm feeling anxious about exams",
+      "I'm having trouble sleeping",
+      "I feel overwhelmed with coursework",
+      "I'm feeling lonely on campus"
+    ],
+    "intro": "Hi there! I'm Manas Svasthya, your AI wellness companion. I'm here to listen and provide support whenever you need it. How are you feeling today?",
+    "error": "I'm sorry, I'm having trouble responding right now. Please try again in a moment, or consider reaching out to your campus counseling center for immediate support.",
+    "disclaimer": "This AI companion provides supportive guidance but is not a replacement for professional mental health care. If you're in crisis, please contact your campus counseling center or emergency services."
+  },
+  "peer": {
+    "title": "Peer Support Forum",
+    "guidelines": "Community Guidelines",
+    "guidelinesNote": "This is a supportive space. Be kind, respectful, and remember that everyone is on their own journey.",
+    "categories": {
+      "all": "All Discussions",
+      "anxiety": "Anxiety Support",
+      "academic": "Academic Stress",
+      "relationships": "Relationships",
+      "sleep": "Sleep Issues",
+      "general": "General Support"
+    },
+    "newDiscussion": "New Discussion",
+    "startNew": "Start a New Discussion",
+    "topicPlaceholder": "What would you like to discuss?",
+    "contentPlaceholder": "Share your thoughts, experiences, or questions. Remember, this is a safe space for support and understanding.",
+    "cancel": "Cancel",
+    "post": "Post Discussion",
+    "join": "Join Discussion",
+    "ctaTitle": "Need Professional Support?",
+    "ctaText": "While peer support is valuable, remember that our AI companion and campus resources are available for additional professional guidance.",
+    "ctaButton": "Talk to AI Companion"
+  },
+  "resources": {
+    "title": "Resource Hub",
+    "subtitle": "Curated mental health resources designed specifically for college students. All content is evidence-based and created by mental health professionals.",
+    "search": "Search resources...",
+    "featured": "Featured Resources",
+    "all": "All Resources",
+    "ctaTitle": "Need Personalized Support?",
+    "ctaText": "Our AI companion can help you find the most relevant resources for your specific situation",
+    "ctaButton": "Talk to AI Companion",
+    "featuredBadge": "Featured"
+  },
+  "medicine": {
+    "title": "Medicine Consultation AI",
+    "subtitle": "Get information about medications, dosages, and side effects",
+    "chooseAssistant": "Choose Your AI Assistant",
+    "bots": {
+      "quick": "Quick AI",
+      "quickDesc": "Fast basic information",
+      "detailed": "Detailed AI",
+      "detailedDesc": "Comprehensive analysis",
+      "pill": "Pill-ID AI",
+      "pillDesc": "Visual identification"
+    },
+    "typeName": "Type medicine name:",
+    "typePlaceholder": "e.g., Paracetamol, Ibuprofen, Aspirin...",
+    "send": "Send",
+    "or": "OR",
+    "uploadLabel": "Upload medicine package or pill photo:",
+    "uploadCtaTitle": "Click to upload or drag and drop",
+    "uploadCtaSub": "PNG, JPG up to 10MB",
+    "processing": "Analyzing medicine...",
+    "detected": "Detected Medicine:",
+    "confirm": "Yes, Proceed",
+    "retry": "No, Try Again",
+    "correctPlaceholder": "Correct the medicine name if needed...",
+    "info": "Medicine Information",
+    "usedFor": "What it's used for",
+    "dosage": "Typical Dosage",
+    "adults": "Adults:",
+    "children": "Children:",
+    "sideEffects": "Common Side Effects",
+    "warnings": "Warnings & Interactions",
+    "isItSafe": "Is it safe?",
+    "followDoctor": "If you're prescribed this by your doctor, follow their instructions. This is informational only.",
+    "disclaimerTitle": "Important Disclaimer",
+    "disclaimer": "This information is for educational purposes only and is not a substitute for professional medical advice. Always consult your doctor, pharmacist, or healthcare provider before taking any medication or if you have questions about your prescription.",
+    "searchAnother": "Search Another Medicine",
+    "contactPharmacist": "Contact Pharmacist",
+    "medicalDisclaimer": "Medical Disclaimer: This AI provides general information only. Not a substitute for professional medical advice. Consult your doctor or pharmacist for personalized medical guidance."
+  },
+  "dashboard": {
+    "greeting": "Good morning, {{name}}",
+    "howFeeling": "How are you feeling today?",
+    "assessment": "Assessment Snapshot",
+    "viewReport": "View full report",
+    "lastAssessed": "Last assessed: {{date}}",
+    "todayActivities": "Today's Activities",
+    "games": "Mindfulness Games",
+    "play": "Play",
+    "quickActions": "Quick Actions",
+    "bookConsultant": "Book Consultant",
+    "chatWithAI": "Chat with AI",
+    "resources": "Resources",
+    "peerChat": "Peer Chat",
+    "upcoming": "Upcoming Events"
+  }
+}
+
+

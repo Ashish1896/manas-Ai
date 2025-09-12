@@ -1,76 +1,79 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Brain, MessageCircle, BookOpen, Users, Heart, Shield, Clock } from "lucide-react";
+import { Brain, MessageCircle, BookOpen, Users, Heart, Shield, Clock, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import heroImage from "@/assets/hero-wellness.jpg";
 
-interface DashboardProps {
-  onSectionChange: (section: string) => void;
-}
-
-const Dashboard = ({ onSectionChange }: DashboardProps) => {
+const Landing = () => {
   const quickActions = [
     {
       title: "Talk to AI Support",
       description: "Get immediate help from our empathetic AI counselor",
       icon: Brain,
-      action: () => onSectionChange('chatbot'),
       color: "therapeutic-blue"
     },
     {
       title: "Browse Resources",
       description: "Access helpful articles and guided exercises",
       icon: BookOpen,
-      action: () => onSectionChange('resources'),
       color: "therapeutic-green"
     },
     {
       title: "Join Peer Support",
       description: "Connect with fellow students who understand",
       icon: Users,
-      action: () => onSectionChange('forum'),
       color: "therapeutic-purple"
     }
   ];
 
   const wellnessStats = [
-    { label: "Days Active", value: "12", icon: Clock },
-    { label: "Resources Viewed", value: "8", icon: BookOpen },
-    { label: "Peer Connections", value: "3", icon: Users },
+    { label: "Students Helped", value: "10,000+", icon: Heart },
+    { label: "Resources Available", value: "500+", icon: BookOpen },
+    { label: "Peer Connections", value: "2,500+", icon: Users },
   ];
 
   return (
-    <div className="min-h-screen pt-20 pb-8">
+    <div className="min-h-screen">
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5">
         <div className="absolute inset-0 bg-gradient-to-r from-background/60 via-background/40 to-transparent"></div>
         <div className="container mx-auto px-6 py-16 relative z-10">
+          {/* Brand */}
+          <div className="mb-8 flex items-center space-x-2">
+            <div className="w-9 h-9 bg-primary rounded-xl flex items-center justify-center shadow-lg">
+              <Brain className="w-5 h-5 text-primary-foreground" />
+            </div>
+            <span className="text-xl font-bold">Manas Svasthya</span>
+          </div>
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6 animate-fade-in">
               <h1 className="text-4xl md:text-5xl font-bold text-balance leading-tight">
-                Your Mental Wellness
-                <span className="text-primary block">Companion</span>
+                Your Journey to Mental Wellness
+                <span className="text-primary block">Starts Here</span>
               </h1>
               <p className="text-xl text-muted-foreground text-balance leading-relaxed">
                 Supporting college students through AI-powered guidance, peer connections, 
                 and evidence-based resources for better mental health.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Button 
-                  size="lg" 
-                  onClick={() => onSectionChange('chatbot')}
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 rounded-xl text-lg shadow-therapeutic animate-gentle-bounce"
-                >
-                  <Brain className="w-5 h-5 mr-2" />
-                  Start AI Support Session
-                </Button>
-                <Button 
-                  variant="outline" 
-                  size="lg"
-                  onClick={() => onSectionChange('resources')}
-                  className="px-8 py-4 rounded-xl text-lg border-primary/20 hover:bg-primary/5"
-                >
-                  Explore Resources
-                </Button>
+                <Link to="/sign-up">
+                  <Button 
+                    size="lg" 
+                    className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 rounded-xl text-lg shadow-therapeutic animate-gentle-bounce w-full sm:w-auto"
+                  >
+                    Start Your Journey
+                    <ArrowRight className="w-5 h-5 ml-2" />
+                  </Button>
+                </Link>
+                <Link to="/about">
+                  <Button 
+                    variant="outline" 
+                    size="lg"
+                    className="px-8 py-4 rounded-xl text-lg border-primary/20 hover:bg-primary/5 w-full sm:w-auto"
+                  >
+                    Learn More
+                  </Button>
+                </Link>
               </div>
             </div>
             
@@ -98,9 +101,8 @@ const Dashboard = ({ onSectionChange }: DashboardProps) => {
             return (
               <Card 
                 key={index} 
-                className="mindwell-card p-6 cursor-pointer hover:shadow-therapeutic hover:-translate-y-1 transition-all duration-300 border-l-4 border-l-primary animate-fade-in"
+                className="mindwell-card p-6 hover:shadow-therapeutic hover:-translate-y-1 transition-all duration-300 border-l-4 border-l-primary animate-fade-in"
                 style={{ animationDelay: `${index * 0.1}s` }}
-                onClick={action.action}
               >
                 <div className="flex items-start space-x-4">
                   <div className="p-3 rounded-xl bg-primary/10">
@@ -118,7 +120,7 @@ const Dashboard = ({ onSectionChange }: DashboardProps) => {
 
         {/* Wellness Stats */}
         <Card className="mindwell-card p-8">
-          <h3 className="text-2xl font-semibold mb-6 text-center">Your Wellness Journey</h3>
+          <h3 className="text-2xl font-semibold mb-6 text-center">Our Impact</h3>
           <div className="grid grid-cols-3 gap-8">
             {wellnessStats.map((stat, index) => {
               const Icon = stat.icon;
@@ -142,7 +144,7 @@ const Dashboard = ({ onSectionChange }: DashboardProps) => {
       <section className="bg-gradient-calm py-16">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Why Choose MindWell?</h2>
+            <h2 className="text-3xl font-bold mb-4">Why Choose Manas Svasthya?</h2>
             <p className="text-lg text-muted-foreground">Built specifically for college students, by mental health experts</p>
           </div>
 
@@ -183,4 +185,4 @@ const Dashboard = ({ onSectionChange }: DashboardProps) => {
   );
 };
 
-export default Dashboard;
+export default Landing;

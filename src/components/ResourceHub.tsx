@@ -3,8 +3,10 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { BookOpen, Video, HeadphonesIcon, Search, Clock, Star, Filter } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const ResourceHub = () => {
+  const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState('');
   const [activeFilter, setActiveFilter] = useState('all');
 
@@ -107,11 +109,8 @@ const ResourceHub = () => {
       <div className="container mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-12 animate-fade-in">
-          <h1 className="text-4xl font-bold mb-4">Resource Hub</h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Curated mental health resources designed specifically for college students. 
-            All content is evidence-based and created by mental health professionals.
-          </p>
+          <h1 className="text-4xl font-bold mb-4">{t('resources.title')}</h1>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{t('resources.subtitle')}</p>
         </div>
 
         {/* Search and Filters */}
@@ -120,7 +119,7 @@ const ResourceHub = () => {
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <Input
-                placeholder="Search resources..."
+                placeholder={t('resources.search')}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="mindwell-input pl-10"
@@ -144,7 +143,7 @@ const ResourceHub = () => {
 
         {/* Featured Resources */}
         <div className="mb-12">
-          <h2 className="text-2xl font-bold mb-6">Featured Resources</h2>
+          <h2 className="text-2xl font-bold mb-6">{t('resources.featured')}</h2>
           <div className="grid lg:grid-cols-3 gap-6">
             {filteredResources.filter(r => r.featured).map((resource, index) => {
               const Icon = getTypeIcon(resource.type);
@@ -159,7 +158,7 @@ const ResourceHub = () => {
                     <div className={`p-2 rounded-lg bg-${typeColor}/10`}>
                       <Icon className={`w-5 h-5 text-${typeColor}`} />
                     </div>
-                    <span className="text-xs font-medium px-2 py-1 rounded-full bg-warning/10 text-warning">Featured</span>
+                    <span className="text-xs font-medium px-2 py-1 rounded-full bg-warning/10 text-warning">{t('resources.featuredBadge')}</span>
                   </div>
                   
                   <h3 className="text-lg font-semibold mb-2 line-clamp-2">{resource.title}</h3>
@@ -185,7 +184,7 @@ const ResourceHub = () => {
 
         {/* All Resources */}
         <div>
-          <h2 className="text-2xl font-bold mb-6">All Resources</h2>
+          <h2 className="text-2xl font-bold mb-6">{t('resources.all')}</h2>
           <div className="grid lg:grid-cols-2 gap-6">
             {filteredResources.map((resource, index) => {
               const Icon = getTypeIcon(resource.type);
@@ -204,7 +203,7 @@ const ResourceHub = () => {
                       <div className="flex items-start justify-between mb-2">
                         <h3 className="text-lg font-semibold line-clamp-2">{resource.title}</h3>
                         {resource.featured && (
-                          <span className="text-xs font-medium px-2 py-1 rounded-full bg-warning/10 text-warning ml-2 flex-shrink-0">Featured</span>
+                          <span className="text-xs font-medium px-2 py-1 rounded-full bg-warning/10 text-warning ml-2 flex-shrink-0">{t('resources.featuredBadge')}</span>
                         )}
                       </div>
                       <p className="text-sm text-muted-foreground mb-3 line-clamp-2">{resource.description}</p>
@@ -220,7 +219,7 @@ const ResourceHub = () => {
                           </div>
                         </div>
                         <Button size="sm" variant="ghost" className="text-primary hover:bg-primary/10 rounded-lg">
-                          View Resource
+                          {t('resources.ctaButton')}
                         </Button>
                       </div>
                     </div>
@@ -233,13 +232,11 @@ const ResourceHub = () => {
 
         {/* Call to Action */}
         <Card className="mindwell-card p-8 mt-12 text-center animate-fade-in">
-          <h3 className="text-xl font-semibold mb-2">Need Personalized Support?</h3>
-          <p className="text-muted-foreground mb-4">
-            Our AI companion can help you find the most relevant resources for your specific situation
-          </p>
+          <h3 className="text-xl font-semibold mb-2">{t('resources.ctaTitle')}</h3>
+          <p className="text-muted-foreground mb-4">{t('resources.ctaText')}</p>
           <Button className="rounded-xl px-6">
             <BookOpen className="w-4 h-4 mr-2" />
-            Talk to AI Companion
+            {t('resources.ctaButton')}
           </Button>
         </Card>
       </div>

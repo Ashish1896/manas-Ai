@@ -1,12 +1,19 @@
-import { SignUp as ClerkSignUp } from "@clerk/clerk-react";
-import { Link } from "react-router-dom";
+import { SignUp as ClerkSignUp, useUser } from "@clerk/clerk-react";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
+  const { isSignedIn, isLoaded } = useUser();
+  const navigate = useNavigate();
+
+  if (isLoaded && isSignedIn) {
+    navigate('/dashboard', { replace: true });
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Join MindWell</h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Join Manas Svasthya</h1>
           <p className="text-gray-600">Create your account to get started</p>
         </div>
         

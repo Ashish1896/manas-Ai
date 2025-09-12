@@ -1,44 +1,65 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Brain, MessageCircle, BookOpen, Users, Home, Menu, X, LogOut, User } from "lucide-react";
+import { Brain, MessageCircle, BookOpen, Users, Home, Menu, X, LogOut, User, Calendar, MoreHorizontal } from "lucide-react";
 import { useUser } from "@clerk/clerk-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
-interface NavigationProps {
-  activeSection: string;
-  onSectionChange: (section: string) => void;
-  onSignOut: () => void;
-}
-
-const Navigation = ({ activeSection, onSectionChange, onSignOut }: NavigationProps) => {
+const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { user } = useUser();
   const navigate = useNavigate();
+  const location = useLocation();
+  const { t, i18n } = useTranslation();
+
+  useEffect(() => {
+    const saved = localStorage.getItem('app_lang');
+    if (saved && saved !== i18n.language) {
+      i18n.changeLanguage(saved);
+    }
+  }, [i18n]);
 
   const handleSignOut = () => {
     navigate("/sign-out");
   };
 
   const navItems = [
-    { id: 'dashboard', label: 'Dashboard', icon: Home },
-    { id: 'chatbot', label: 'AI Support', icon: Brain },
-    { id: 'resources', label: 'Resources', icon: BookOpen },
-    { id: 'forum', label: 'Peer Support', icon: Users },
+    { id: 'dashboard', label: t('nav.dashboard'), icon: Home, path: '/dashboard' },
+    { id: 'chat', label: t('nav.chat'), icon: Brain, path: '/chat' },
+    { id: 'booking', label: t('nav.booking'), icon: Calendar, path: '/booking' },
+    { id: 'resources', label: t('nav.resources'), icon: BookOpen, path: '/resources' },
+    { id: 'community', label: t('nav.community'), icon: Users, path: '/community' },
+    { id: 'medicine', label: t('nav.medicine'), icon: MessageCircle, path: '/medicine' },
   ];
+
+  const isActive = (path: string) => location.pathname === path;
 
   return (
     <>
       {/* Desktop Navigation */}
       <nav className="hidden md:flex fixed top-0 left-0 right-0 z-50 bg-card/80 backdrop-blur-md border-b border-border">
-        <div className="container mx-auto px-6 py-4">
+        <div className="container mx-auto px-6 pt-6 pb-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="sm" className="rounded-xl p-2">
+                    <MoreHorizontal className="w-5 h-5" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="start" className="w-48">
+                  <DropdownMenuItem onClick={() => { i18n.changeLanguage('en'); localStorage.setItem('app_lang','en'); }}>{t('lang.english')}</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => { i18n.changeLanguage('hi'); localStorage.setItem('app_lang','hi'); }}>{t('lang.hindi')}</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => { i18n.changeLanguage('or'); localStorage.setItem('app_lang','or'); }}>{t('lang.odia')}</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => { i18n.changeLanguage('ks'); localStorage.setItem('app_lang','ks'); }}>{t('lang.kashmiri')}</DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
               <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
                 <Brain className="w-5 h-5 text-primary-foreground" />
               </div>
-              <span className="text-xl font-bold text-foreground">MindWell</span>
+              <span className="text-xl font-bold text-foreground">{t('app.name')}</span>
             </div>
             
             <div className="flex items-center space-x-1">
@@ -47,9 +68,9 @@ const Navigation = ({ activeSection, onSectionChange, onSignOut }: NavigationPro
                 return (
                   <Button
                     key={item.id}
-                    variant={activeSection === item.id ? "default" : "ghost"}
+                    variant={isActive(item.path) ? "default" : "ghost"}
                     size="sm"
-                    onClick={() => onSectionChange(item.id)}
+                    onClick={() => navigate(item.path)}
                     className="flex items-center space-x-2 px-4 py-2 rounded-xl"
                   >
                     <Icon className="w-4 h-4" />
@@ -96,7 +117,7 @@ const Navigation = ({ activeSection, onSectionChange, onSignOut }: NavigationPro
             <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
               <Brain className="w-5 h-5 text-primary-foreground" />
             </div>
-            <span className="text-lg font-bold text-foreground">MindWell</span>
+            <span className="text-lg font-bold text-foreground">Manas Svasthya</span>
           </div>
           
           <Button
@@ -117,9 +138,9 @@ const Navigation = ({ activeSection, onSectionChange, onSignOut }: NavigationPro
                 return (
                   <Button
                     key={item.id}
-                    variant={activeSection === item.id ? "default" : "ghost"}
+                    variant={isActive(item.path) ? "default" : "ghost"}
                     onClick={() => {
-                      onSectionChange(item.id);
+                      navigate(item.path);
                       setIsMobileMenuOpen(false);
                     }}
                     className="w-full justify-start space-x-2 rounded-xl"
