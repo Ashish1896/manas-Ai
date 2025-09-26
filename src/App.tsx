@@ -25,6 +25,7 @@ import SignUpPage from "./auth/sign-up/[[...sign-up]]/page";
 import SignOutPage from "./auth/sign-out/page";
 import { registerServiceWorker, addOnlineStatusListener } from "./utils/pwa";
 import { useEffect } from "react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 const queryClient = new QueryClient();
 
@@ -96,6 +97,7 @@ const App = () => {
           <BrowserRouter>
             <OfflineIndicator />
             <PWAInstallPrompt />
+            <SpeedInsights />
             <Routes>
               {/* Public Routes */}
               <Route
