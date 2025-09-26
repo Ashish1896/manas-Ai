@@ -4,7 +4,7 @@ import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: process.env.VITE_BASH_PATH || "/manas-Ai",
+  base: process.env.VITE_BASH_PATH || "/",
   server: {
     host: "::",
     port: 8080,
