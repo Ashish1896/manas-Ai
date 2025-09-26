@@ -6,13 +6,22 @@ import { Brain, Send, Sparkles, Heart, Loader2, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import { geminiService, ChatMessage } from "@/lib/gemini";
 import { useAssessment } from "@/contexts/AssessmentContext";
+import { useTranslation } from "react-i18next";
+
+type Message = {
+  id: number;
+  type: 'bot' | 'user';
+  content: string;
+  timestamp: string;
+};
 
 const Chat = () => {
-  const [messages, setMessages] = useState([
+  const { t } = useTranslation();
+  const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
-      type: 'bot' as const,
-      content: "Hi there! I'm Manas Svasthya, your AI wellness companion. I'm here to listen and provide support whenever you need it. How are you feeling today?",
+      type: 'bot',
+      content: t('chat.intro'),
       timestamp: new Date().toLocaleTimeString()
     }
   ]);
@@ -23,19 +32,14 @@ const Chat = () => {
   
   const { addChatMessage, analyzeChatForAssessment } = useAssessment();
 
-  const quickPrompts = [
-    "I'm feeling anxious about exams",
-    "I'm having trouble sleeping",
-    "I feel overwhelmed with coursework",
-    "I'm feeling lonely on campus"
-  ];
+  const quickPrompts = t('chat.quickPrompts', { returnObjects: true }) as string[];
 
   const handleSendMessage = async () => {
     if (!inputValue.trim() || isLoading) return;
 
-    const newUserMessage = {
+    const newUserMessage: Message = {
       id: messages.length + 1,
-      type: 'user' as const,
+      type: 'user',
       content: inputValue,
       timestamp: new Date().toLocaleTimeString()
     };
@@ -59,9 +63,9 @@ const Chat = () => {
           setStreamingText((prev) => (prev === "..." ? chunk : prev + chunk));
         },
         (fullText) => {
-          const botResponse = {
+          const botResponse: Message = {
             id: Date.now(),
-            type: 'bot' as const,
+            type: 'bot',
             content: fullText,
             timestamp: new Date().toLocaleTimeString()
           };
@@ -71,10 +75,10 @@ const Chat = () => {
         },
         (err) => {
           console.error('Streaming error:', err);
-          const errorResponse = {
+          const errorResponse: Message = {
             id: Date.now(),
-            type: 'bot' as const,
-            content: "I'm sorry, I'm having trouble responding right now. Please try again in a moment, or consider reaching out to your campus counseling center for immediate support.",
+            type: 'bot',
+            content: t('chat.error'),
             timestamp: new Date().toLocaleTimeString()
           };
           setMessages(prev => [...prev, errorResponse]);
@@ -84,10 +88,10 @@ const Chat = () => {
       );
     } catch (error) {
       console.error('Error getting AI response:', error);
-      const errorResponse = {
+      const errorResponse: Message = {
         id: messages.length + 2,
-        type: 'bot' as const,
-        content: "I'm sorry, I'm having trouble responding right now. Please try again in a moment, or consider reaching out to your campus counseling center for immediate support.",
+        type: 'bot',
+        content: t('chat.error'),
         timestamp: new Date().toLocaleTimeString()
       };
       setMessages(prev => [...prev, errorResponse]);
@@ -110,7 +114,7 @@ const Chat = () => {
 
   return (
     <div className="min-h-screen pt-20 pb-8 bg-gradient-calm">
-      <div className="container mx-auto px-6 max-w-4xl">
+      <div className="container mx-auto px-6 max-w-4xl py-6 pb-24 lg:pb-6">
         {/* Header */}
         <div className="mb-8">
           <Link to="/dashboard" className="inline-flex items-center text-primary hover:text-primary/80 mb-4">
@@ -123,9 +127,9 @@ const Chat = () => {
                 <Brain className="w-12 h-12 text-primary" />
               </div>
             </div>
-            <h1 className="text-3xl font-bold mb-2">AI Wellness Companion</h1>
+            <h1 className="text-3xl font-bold mb-2">{t('chat.title')}</h1>
             <p className="text-lg text-muted-foreground">
-              Safe, confidential support powered by advanced AI trained in mental health best practices
+              {t('chat.subtitle')}
             </p>
           </div>
         </div>
@@ -133,34 +137,48 @@ const Chat = () => {
         {/* Chat Interface */}
         <Card className="mindwell-card p-6 mb-6 animate-fade-in">
           <div ref={messagesContainerRef} className="space-y-4 mb-6 max-h-96 overflow-y-auto">
-            {messages.map((message) => (
-              <div
-                key={message.id}
-                className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
-              >
+            {messages.map((message) => {
+              const isCrisisResponse = message.type === 'bot' && message.content.includes('🚨 EMERGENCY NUMBERS');
+              
+              return (
                 <div
-                  className={`max-w-sm lg:max-w-md px-4 py-3 rounded-2xl ${
-                    message.type === 'user'
-                      ? 'bg-primary text-primary-foreground ml-4'
-                      : 'bg-secondary text-secondary-foreground mr-4'
-                  }`}
+                  key={message.id}
+                  className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
-                  {message.type === 'bot' && (
-                    <div className="flex items-center mb-2">
-                      <Sparkles className="w-4 h-4 mr-2 text-primary" />
-                      <span className="text-xs font-medium text-primary">AI Companion</span>
-                    </div>
-                  )}
-                  <p className="text-sm leading-relaxed">{message.content}</p>
-                  <p className="text-xs opacity-70 mt-2">{message.timestamp}</p>
+                  <div
+                    className={`max-w-sm lg:max-w-md px-4 py-3 rounded-2xl ${
+                      message.type === 'user'
+                        ? 'bg-primary text-primary-foreground ml-4'
+                        : isCrisisResponse
+                        ? 'bg-red-50 border-2 border-red-200 text-red-900 mr-4 animate-pulse'
+                        : 'bg-secondary text-secondary-foreground mr-4'
+                    }`}
+                  >
+                    {message.type === 'bot' && (
+                      <div className="flex items-center mb-2">
+                        {isCrisisResponse ? (
+                          <Heart className="w-4 h-4 mr-2 text-red-600" />
+                        ) : (
+                          <Sparkles className="w-4 h-4 mr-2 text-primary" />
+                        )}
+                        <span className={`text-xs font-medium ${isCrisisResponse ? 'text-red-600' : 'text-primary'}`}>
+                          {isCrisisResponse ? '🚨 Crisis Support' : t('chat.assistant')}
+                        </span>
+                      </div>
+                    )}
+                    <p className={`text-sm leading-relaxed ${isCrisisResponse ? 'font-medium' : ''}`}>
+                      {message.content}
+                    </p>
+                    <p className="text-xs opacity-70 mt-2">{message.timestamp}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
             {streamingText && (
               <div className="flex justify-start">
                 <div className="max-w-sm lg:max-w-md px-4 py-3 rounded-2xl bg-secondary text-secondary-foreground mr-4">
                   <div className="flex items-center mb-2">
-                    <span className="text-xs font-medium text-primary">AI Companion</span>
+                    <span className="text-xs font-medium text-primary">{t('chat.assistant')}</span>
                   </div>
                   <p className="text-sm leading-relaxed whitespace-pre-wrap">{streamingText}</p>
                 </div>
@@ -175,7 +193,7 @@ const Chat = () => {
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                placeholder="Share what's on your mind..."
+                placeholder={t('chat.placeholder')}
                 className="mindwell-input flex-1"
               />
               <Button 
@@ -198,7 +216,7 @@ const Chat = () => {
         <Card className="mindwell-card p-6 animate-fade-in" style={{ animationDelay: '0.2s' }}>
           <h3 className="text-lg font-semibold mb-4 flex items-center">
             <Heart className="w-5 h-5 mr-2 text-therapeutic-warm" />
-            Common Concerns - Click to start
+            {t('chat.quick')}
           </h3>
           <div className="grid sm:grid-cols-2 gap-3">
             {quickPrompts.map((prompt, index) => (
@@ -217,8 +235,7 @@ const Chat = () => {
         {/* Disclaimer */}
         <div className="text-center mt-6 text-sm text-muted-foreground animate-fade-in" style={{ animationDelay: '0.4s' }}>
           <p>
-            This AI companion provides supportive guidance but is not a replacement for professional mental health care. 
-            If you're in crisis, please contact your campus counseling center or emergency services.
+            {t('chat.disclaimer')}
           </p>
         </div>
       </div>

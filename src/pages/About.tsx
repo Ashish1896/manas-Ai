@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Heart, Shield, Users, Brain, ArrowLeft } from "lucide-react";
+import { Heart, Shield, Users, Brain, ArrowLeft, Phone, Mail, User } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const About = () => {
@@ -107,6 +107,79 @@ const About = () => {
               <div className="text-center">
                 <div className="text-3xl font-bold text-primary mb-2">24/7</div>
                 <div className="text-sm text-muted-foreground">Support Available</div>
+              </div>
+            </div>
+          </Card>
+
+          {/* About Us - Contact Information */}
+          <Card className="p-8">
+            <div className="flex items-center space-x-3 mb-6">
+              <div className="p-2 rounded-lg bg-primary/10">
+                <User className="w-6 h-6 text-primary" />
+              </div>
+              <h2 className="text-2xl font-semibold">About Us</h2>
+            </div>
+            
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-lg font-semibold mb-3 text-primary">Get in Touch</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    We're here to support you on your mental wellness journey. Feel free to reach out 
+                    to us with any questions, feedback, or if you need assistance.
+                  </p>
+                </div>
+                
+                <div className="space-y-4">
+                  <div className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg">
+                    <div className="p-2 rounded-full bg-green-100">
+                      <Phone className="w-5 h-5 text-green-600" />
+                    </div>
+                    <div>
+                      <p className="font-medium text-gray-900">Phone</p>
+                      <a 
+                        href="tel:+918249094681" 
+                        className="text-primary hover:text-primary/80 transition-colors"
+                      >
+                        +91 8249094681
+                      </a>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg">
+                    <div className="p-2 rounded-full bg-blue-100">
+                      <Mail className="w-5 h-5 text-blue-600" />
+                    </div>
+                    <div>
+                      <p className="font-medium text-gray-900">Email</p>
+                      <a 
+                        href="mailto:ashishsahoo1896@gmail.com" 
+                        className="text-primary hover:text-primary/80 transition-colors break-all"
+                      >
+                        ashishsahoo1896@gmail.com
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-lg font-semibold mb-3 text-primary">Our Commitment</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Manas Svasthya is built with students in mind. We understand the unique challenges 
+                    of college life and are committed to providing accessible, effective mental health 
+                    support that fits into your busy schedule.
+                  </p>
+                </div>
+                
+                <div className="bg-primary/5 rounded-lg p-4">
+                  <h4 className="font-semibold text-primary mb-2">Response Time</h4>
+                  <p className="text-sm text-muted-foreground">
+                    We typically respond to inquiries within 24 hours. For urgent mental health concerns, 
+                    please contact your campus counseling center or emergency services.
+                  </p>
+                </div>
               </div>
             </div>
           </Card>

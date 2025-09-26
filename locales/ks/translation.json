@@ -3,6 +3,7 @@
   "nav": {
     "dashboard": "ڈیش بورڈ",
     "chat": "مانسAI",
+    "assessment": "تشخیص",
     "booking": "بکنگ",
     "resources": "وسائل",
     "community": "ہم عمر-باہم",
@@ -24,6 +25,42 @@
     "intro": "سَلَام! مئن مائنڈویل چُھ، تُہندس AI صحت ساتھی۔ مئن چھاں سُنن تہ مدد کرن۔ تُہِ چھ کِسہ حَلَتس منز آج؟",
     "error": "معذرت، اس وَقت جواب دِنہ منز دِقت چھ۔ بَعد منز کوشش کرُن یا کیئمپس کاؤنسلِنگ سَنٹر سِتھ رابطہ کرُن۔",
     "disclaimer": "یہ AI صرف مددگار رہنمائی چھہ، پیشہ وارانہ طبی مشورہ نِہ۔ بحرانس منز، براہِ کرم ہنگامی خدمات یا کیئمپس کاؤنسلِنگ سَنٹر سِتھ رابطہ کرُن۔"
+  },
+  "community": {
+    "title": "ہم عمر مدد",
+    "backToDashboard": "ڈیش بورڈس پؠٹھ واپس گژھٲو",
+    "tabs": {
+      "chat": "بات چیت",
+      "events": "ایونٹس"
+    },
+    "chat": {
+      "mentor": "مینٹر",
+      "discussion": "کھلی بحث",
+      "mentorProfile": {
+        "sessions": "سیشنز",
+        "rating": "ریٹنگ",
+        "lastActive": "آخری سرگرم:",
+        "scheduleCall": "کال شیڈول کرٲو",
+        "online": "آن لائن",
+        "offline": "آف لائن",
+        "startConversation": "بات چیت شروع کرٲو",
+        "mentorMessage": "تہند مخصوص مینٹر تہند مدد خاطرہ چھہ۔ اپن ہم عمر مدد سفر شروع کرنہ خاطرہ بات چیت شروع کرٲو۔",
+        "typeMessage": "اپن پیغام ٹائپ کرٲو...",
+        "send": "بھیجٲو"
+      },
+      "discussion": {
+        "activeMembers": "سرگرم ممبران:",
+        "moderator": "موڈریٹر:",
+        "nextSession": "اگلا سیشن:",
+        "isActive": "سرگرم چھہ",
+        "joinGroup": "گروپس منز شامل گژھٲو"
+      }
+    },
+    "events": {
+      "hostedBy": "ہوسٹ کیا گیا",
+      "participants": "شرکاء",
+      "signUp": "ایونٹ خاطرہ سائن اپ کرٲو"
+    }
   },
   "peer": {
     "title": "ہم عمر مدد فورم",
@@ -90,6 +127,67 @@
     "searchAnother": "دووس دوا تلاش کرٲو",
     "contactPharmacist": "فارماسِسٹ سِتھ رابطہ کرٲو",
     "medicalDisclaimer": "طِبی تردید: یہ صرف عام معلومات چھ۔"
+  },
+  "booking": {
+    "title": "ذہنی صحت پیشہ وران تلاش کرٲو",
+    "backToDashboard": "ڈیش بورڈس پؠٹھ واپس گژھٲو",
+    "selectState": "نزدیکی کنسلٹنٹس تلاش کرنہ خاطرہ اپن ریاست چُنِو:",
+    "chooseState": "ریاست چُنِو...",
+    "preview": "پیش منظر",
+    "book": "بُک کرٲو",
+    "bookConsultation": "مشاورت بُک کرٲو",
+    "bookAppointment": "ملاقات بُک کرٲو",
+    "askQuestion": "تیز سوال پوچھٲو",
+    "consultationFee": "مشاورت فیس فی سیشن دکھاونہ آمت چھ۔ چیک آؤٹس پؠٹھ ادائیگی کیتھ گژھٲو۔",
+    "privacyNote": "تہند بُکنگ تفصیلات نجی چھ تہ صرف کلینیشن سِتھ شیئر گژھٲو۔",
+    "qualifications": "قابلیت",
+    "languages": "زبان",
+    "consultationTypes": "مشاورت قسماں",
+    "consultationFeeLabel": "مشاورت فیس",
+    "perSession": "فی سیشن",
+    "availableToday": "آج دستیاب",
+    "availableSlots": "دستیاب سلاٹس",
+    "reasonForConsultation": "مشاورت کا سبب (اختیاری)",
+    "reasonPlaceholder": "مختصر وضاحت کہ تہِ کیا بحث کرنہ چاہیو...",
+    "bookingSummary": "بُکنگ خلاصہ",
+    "date": "تاریخ:",
+    "time": "وقت:",
+    "mode": "موڈ:",
+    "fee": "فیس:",
+    "selectSlot": "سلاٹ چُنِو",
+    "online": "آن لائن",
+    "confirmBooking": "بُکنگ تصدیق کرٲو",
+    "paymentRedirect": "تصدیقس پؠٹھ تہِ ادائیگی خاطرہ ریڈائریکٹ گژھٲو",
+    "bookingConfirmed": "بُکنگ تصدیق گژھٲو!",
+    "bookingSuccess": "{{name}} سِتھ تہند مشاورت {{date}} کس {{time}} کس خاطرہ شیڈول گژھٲو۔",
+    "calendarInvite": "ہمہ تہند ڈیش بورڈس منز شامل کرٲو تہ کیلنڈر دعوت نامہ بھیجٲو۔",
+    "backToConsultants": "کنسلٹنٹس پؠٹھ واپس گژھٲو"
+  },
+  "resources": {
+    "title": "ذہنی صحت وسائل",
+    "backToDashboard": "ڈیش بورڈس پؠٹھ واپس گژھٲو",
+    "searchPlaceholder": "کوڈ (مثال MUS-101) یا عنوان سِتھ تلاش کرٲو...",
+    "backToResources": "وسائلس پؠٹھ واپس گژھٲو",
+    "resourceActions": "وسائل کارروائیاں",
+    "playView": "پلے / منظر",
+    "download": "ڈاؤن لوڈ",
+    "recommendedDuration": "تجویز کردہ مدت",
+    "relatedResources": "متعلقہ وسائل",
+    "noResourcesFound": "کوئی وسائل نہیں ملا",
+    "noResourcesMessage": "اپنی تلاش کو ایڈجسٹ کرٲو یا مختلف قسم چُنِو۔",
+    "listenPractice": "{{duration}} روزانہ سُنِو/مشق کرٲو",
+    "readPages": "فی سیشن 10-15 صفحات پڑھٲو",
+    "watchInspiration": "جب حوصلہ افزائی کی ضرورت ہو تو دیکھٲو",
+    "nowPlaying": "ہُن بج رہیو",
+    "nowWatching": "ہُن دیکھ رہیو",
+    "nowReading": "ہُن پڑھ رہیو",
+    "page": "صفحہ {{page}}",
+    "view": "منظر",
+    "readPdf": "PDF پڑھٲو",
+    "downloadPdf": "PDF ڈاؤن لوڈ کرٲو",
+    "pdfViewer": "PDF ویوَر",
+    "pdfNotSupported": "تہندس براؤزر PDF منظر کرنَس منز مدد نہیں کران۔ براہِ کرم پڑھنَس خاطر فائل ڈاؤن لوڈ کرٲو۔",
+    "openInNewTab": "نوے ٹیبس منز کھولٲو"
   },
   "dashboard": {
     "greeting": "سَو پٲتھ، {{name}}",

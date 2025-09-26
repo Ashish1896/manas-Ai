@@ -54,3 +54,6 @@ Desktop.ini
 # Build outputs
 build/
 out/
+
+# Documentation files
+*.md

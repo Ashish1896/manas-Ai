@@ -2,6 +2,244 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Force override cached calendar styles */
+.journal-calendar-container {
+  background: linear-gradient(
+    135deg,
+    rgba(249, 245, 255, 0.2) 0%,
+    rgba(255, 255, 255, 0.9) 50%,
+    rgba(243, 232, 255, 0.3) 100%
+  ) !important;
+  border-radius: 1.5rem !important;
+  padding: 1.5rem !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+  border: 1px solid rgba(196, 181, 253, 0.2) !important;
+  backdrop-filter: blur(40px) !important;
+  -webkit-backdrop-filter: blur(40px) !important;
+}
+
+/* Force purple theme for journal calendar */
+.journal-calendar-container .calendar-header {
+  background: linear-gradient(
+    90deg,
+    rgba(139, 92, 246, 0.05) 0%,
+    rgba(124, 58, 237, 0.05) 100%
+  ) !important;
+  border-radius: 1rem !important;
+  padding: 0.75rem !important;
+  border: 1px solid rgba(196, 181, 253, 0.3) !important;
+}
+
+.journal-calendar-container .calendar-day-header {
+  background: linear-gradient(
+    180deg,
+    rgba(196, 181, 253, 0.4) 0%,
+    rgba(221, 214, 254, 0.2) 100%
+  ) !important;
+  border-radius: 0.75rem !important;
+  border: 1px solid rgba(196, 181, 253, 0.3) !important;
+  color: rgba(91, 33, 182, 0.7) !important;
+}
+
+.journal-calendar-container .calendar-day-cell {
+  height: 4rem !important;
+  border-radius: 0.75rem !important;
+  transition: all 0.3s ease !important;
+}
+
+/* Clear any conflicting UI calendar styles */
+.journal-calendar-container *:not(.react-day-picker) {
+  box-sizing: border-box !important;
+}
+
+/* Ensure journal calendar takes precedence over UI calendar */
+.journal-calendar-container {
+  z-index: 10 !important;
+  position: relative !important;
+}
+
+/* Enhanced journal calendar styling to prevent conflicts */
+.journal-calendar-container .calendar-cell-content {
+  position: relative !important;
+  width: 100% !important;
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Global LTR text direction fixes for journal editor */
+.journal-text-fix {
+  direction: ltr !important;
+  text-align: left !important;
+  unicode-bidi: normal !important;
+  writing-mode: horizontal-tb !important;
+}
+
+/* Force LTR for all text inputs in journal components */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+textarea,
+[contenteditable] {
+  direction: ltr !important;
+  text-align: left !important;
+  unicode-bidi: normal !important;
+}
+
+/* Specific fixes for contentEditable elements */
+[contenteditable] {
+  direction: ltr !important;
+  text-align: left !important;
+  unicode-bidi: normal !important;
+  writing-mode: horizontal-tb !important;
+}
+
+[contenteditable] *,
+[contenteditable] p,
+[contenteditable] div,
+[contenteditable] span,
+[contenteditable] strong,
+[contenteditable] em,
+[contenteditable] u {
+  direction: ltr !important;
+  unicode-bidi: normal !important;
+}
+
+/* Fix cursor behavior in RTL-affected environments */
+[contenteditable]:focus {
+  direction: ltr !important;
+  text-align: left !important;
+}
+
+/* Prevent RTL inheritance */
+.journal-container {
+  direction: ltr !important;
+  text-align: left !important;
+}
+
+.journal-container * {
+  direction: ltr !important;
+  unicode-bidi: normal !important;
+}
+
+/* Enhanced styles for the new simplified text editor */
+.journal-textarea {
+  direction: ltr !important;
+  text-align: left !important;
+  unicode-bidi: normal !important;
+  writing-mode: horizontal-tb !important;
+  font-feature-settings: "liga" 1, "kern" 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.journal-textarea:focus {
+  direction: ltr !important;
+  text-align: left !important;
+}
+
+/* Smooth animations for journal interface */
+.journal-fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Custom scrollbar for journal text areas */
+.journal-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.journal-scrollbar::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
+}
+
+.journal-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+.journal-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* PWA Animations */
+@keyframes slide-up {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.3s ease-out;
+}
+
+/* PWA Install Prompt Styles */
+.pwa-install-prompt {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Offline Indicator */
+.offline-indicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #f59e0b;
+  color: white;
+  text-align: center;
+  padding: 8px;
+  font-size: 14px;
+  z-index: 9999;
+  transform: translateY(-100%);
+  transition: transform 0.3s ease;
+}
+
+.offline-indicator.show {
+  transform: translateY(0);
+}
+
+/* PWA-specific styles for mental health app */
+.pwa-safe-area {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* Ensure proper spacing on mobile devices */
+@media (display-mode: standalone) {
+  body {
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+  }
+
+  /* Hide address bar space on iOS */
+  .pwa-container {
+    height: 100vh;
+    height: -webkit-fill-available;
+  }
+}
+
 /* Manas Svasthya Design System - Therapeutic & Calming */
 
 @layer base {
@@ -55,9 +293,21 @@
     --radius: 0.75rem;
 
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-light)));
-    --gradient-calm: linear-gradient(180deg, hsl(var(--background)), hsl(var(--secondary)));
-    --gradient-hero: linear-gradient(135deg, hsl(var(--therapeutic-blue)), hsl(var(--therapeutic-purple)));
+    --gradient-primary: linear-gradient(
+      135deg,
+      hsl(var(--primary)),
+      hsl(var(--primary-light))
+    );
+    --gradient-calm: linear-gradient(
+      180deg,
+      hsl(var(--background)),
+      hsl(var(--secondary))
+    );
+    --gradient-hero: linear-gradient(
+      135deg,
+      hsl(var(--therapeutic-blue)),
+      hsl(var(--therapeutic-purple))
+    );
 
     /* Shadows */
     --shadow-soft: 0 4px 20px -2px hsl(var(--primary) / 0.1);
@@ -133,7 +383,12 @@
     @apply bg-background text-foreground font-sans antialiased;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-semibold tracking-tight;
   }
 }
@@ -184,16 +439,21 @@
 }
 
 @keyframes gentleBounce {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-4px); }
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
 }
 
 @keyframes fadeIn {
-  from { 
+  from {
     opacity: 0;
     transform: translateY(10px);
   }
-  to { 
+  to {
     opacity: 1;
     transform: translateY(0px);
   }

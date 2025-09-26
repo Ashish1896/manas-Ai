@@ -7,17 +7,24 @@ import { useUser } from "@clerk/clerk-react";
 import { AssessmentProvider } from "@/contexts/AssessmentContext";
 import Navigation from "./components/Navigation";
 import UserDashboard from "./components/UserDashboard";
+import PWAInstallPrompt from "./components/PWAInstallPrompt";
+import OfflineIndicator from "./components/OfflineIndicator";
 import Landing from "./pages/Landing";
 import About from "./pages/About";
 import Booking from "./pages/Booking";
 import Chat from "./pages/Chat";
+import Assessment from "./pages/Assessment";
 import Resources from "./pages/Resources";
 import Community from "./pages/Community";
 import MedicineAI from "./components/MedicineAI";
+import Journal from "./pages/Journal";
 import NotFound from "./pages/NotFound";
-import SignIn from "./pages/SignIn";
-import SignUp from "./pages/SignUp";
-import SignOut from "./pages/SignOut";
+// Import auth components from auth folder
+import SignInPage from "./auth/sign-in/[[...sign-in]]/page";
+import SignUpPage from "./auth/sign-up/[[...sign-up]]/page";
+import SignOutPage from "./auth/sign-out/page";
+import { registerServiceWorker, addOnlineStatusListener } from "./utils/pwa";
+import { useEffect } from "react";
 
 const queryClient = new QueryClient();
 
@@ -51,6 +58,23 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 const App = () => {
   const { isSignedIn, isLoaded } = useUser();
 
+  // PWA Setup
+  useEffect(() => {
+    // Register service worker
+    registerServiceWorker();
+
+    // Handle online/offline status
+    const cleanup = addOnlineStatusListener((isOnline) => {
+      if (!isOnline) {
+        console.log("App is now offline - some features may be limited");
+      } else {
+        console.log("App is back online");
+      }
+    });
+
+    return cleanup;
+  }, []);
+
   // Show loading state while Clerk is initializing
   if (!isLoaded) {
     return (
@@ -70,69 +94,91 @@ const App = () => {
         <Sonner />
         <AssessmentProvider>
           <BrowserRouter>
+            <OfflineIndicator />
+            <PWAInstallPrompt />
             <Routes>
               {/* Public Routes */}
-              <Route 
-                path="/" 
+              <Route
+                path="/"
                 element={
-                  isSignedIn ? <Navigate to="/dashboard" replace /> : <Landing />
-                } 
+                  isSignedIn ? (
+                    <Navigate to="/dashboard" replace />
+                  ) : (
+                    <Landing />
+                  )
+                }
               />
               <Route path="/about" element={<About />} />
-              <Route path="/sign-in" element={<SignIn />} />
-              <Route path="/sign-up" element={<SignUp />} />
-              <Route path="/sign-out" element={<SignOut />} />
-              
+              <Route path="/sign-in/*" element={<SignInPage />} />
+              <Route path="/sign-up/*" element={<SignUpPage />} />
+              <Route path="/sign-out" element={<SignOutPage />} />
+
               {/* Protected Routes */}
-              <Route 
-                path="/dashboard" 
+              <Route
+                path="/dashboard"
                 element={
                   <ProtectedRoute>
                     <UserDashboard />
                   </ProtectedRoute>
-                } 
+                }
               />
-              <Route 
-                path="/booking" 
+              <Route
+                path="/booking"
                 element={
                   <ProtectedRoute>
                     <Booking />
                   </ProtectedRoute>
-                } 
+                }
               />
-              <Route 
-                path="/chat" 
+              <Route
+                path="/chat"
                 element={
                   <ProtectedRoute>
                     <Chat />
                   </ProtectedRoute>
-                } 
+                }
               />
-              <Route 
-                path="/resources" 
+              <Route
+                path="/journal"
+                element={
+                  <ProtectedRoute>
+                    <Journal />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/assessment"
+                element={
+                  <ProtectedRoute>
+                    <Assessment />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/resources"
                 element={
                   <ProtectedRoute>
                     <Resources />
                   </ProtectedRoute>
-                } 
+                }
               />
-              <Route 
-                path="/community" 
+              <Route
+                path="/community"
                 element={
                   <ProtectedRoute>
                     <Community />
                   </ProtectedRoute>
-                } 
+                }
               />
-              <Route 
-                path="/medicine" 
+              <Route
+                path="/medicine"
                 element={
                   <ProtectedRoute>
                     <MedicineAI />
                   </ProtectedRoute>
-                } 
+                }
               />
-              
+
               {/* Catch all route */}
               <Route path="*" element={<NotFound />} />
             </Routes>
@@ -143,5 +189,4 @@ const App = () => {
   );
 };
 
-export default App;
-//help?
+export default App; //help?
