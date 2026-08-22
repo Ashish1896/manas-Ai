@@ -178,6 +178,15 @@ See `CONTRIBUTING.md` for detailed guidelines.
 
 ---
 
+## Contributors
+
+Thanks to everyone who has contributed to this project!
+
+- [@Ashish1896](https://github.com/Ashish1896) - Project creator
+- [@Akchive](https://github.com/Akchive)
+
+---
+
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
