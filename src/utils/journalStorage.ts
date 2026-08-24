@@ -1,7 +1,7 @@
 import { JournalEntry } from "@/types/journal";
 
 export class JournalStorageManager {
-  private static instance: JournalStorageManager;
+  private static instances = new Map<string, JournalStorageManager>();
   private storageKey: string;
 
   private constructor(userId?: string) {
@@ -9,10 +9,11 @@ export class JournalStorageManager {
   }
 
   static getInstance(userId?: string): JournalStorageManager {
-    if (!JournalStorageManager.instance) {
-      JournalStorageManager.instance = new JournalStorageManager(userId);
+    const key = userId ?? "anonymous";
+    if (!JournalStorageManager.instances.has(key)) {
+      JournalStorageManager.instances.set(key, new JournalStorageManager(userId));
     }
-    return JournalStorageManager.instance;
+    return JournalStorageManager.instances.get(key)!;
   }
 
   /**

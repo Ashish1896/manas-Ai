@@ -327,7 +327,12 @@ If you're on a college campus, also contact your campus counseling center or stu
         return aiResponse;
       } catch (primaryError) {
         console.warn('Primary API failed, trying fallback:', primaryError.message);
-        
+
+        if (!fallbackModel) {
+          console.error('No fallback API key configured:', primaryError);
+          return this.handleApiError(primaryError);
+        }
+
         // If primary fails, try fallback
         try {
           console.log('Attempting with fallback API key...');
